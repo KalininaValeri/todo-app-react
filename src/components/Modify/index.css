@@ -1,0 +1,33 @@
+.form {
+    position: relative;
+    padding: 1em;
+    border: 1px solid #d8d8d8;
+    margin: 1.5rem 0 0;
+}
+
+.form__title {
+    left: 0;
+    top: 0;
+    color: #aaa;
+    font-size: smaller;
+    font-weight: 500;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.form__group {
+    display: flex;
+    align-items: center;
+}
+
+.form__label {
+    width: 300px;
+}
+
+.from__date {
+    width: 50%;
+}
+
+.form__btn {
+    margin-right: 20px;
+}
