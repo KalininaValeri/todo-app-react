@@ -51,7 +51,7 @@ class ListItem extends Component {
           </div>
         </div>
         <div className="item__component btn-group">
-          <div className="button-icon edit" onClick={() => {pushModifyPage('edit')}}>
+          <div className="button-icon edit" onClick={() => {pushModifyPage(`edit/${item.id}`)}}>
             <MaterialIcon icon="edit" color='#fff' size={16}/>
           </div>
           <div className="button-icon delete" onClick={() => {remove(item.id)}}>

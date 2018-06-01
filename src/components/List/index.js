@@ -33,7 +33,6 @@ class List extends Component {
   };
 
   render() {
-    console.log(this.props);
     const {
       pushModifyPage,
       props: {

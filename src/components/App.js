@@ -13,7 +13,7 @@ class App extends Component {
           <Switch key="content">
             <Route path="/" exact component={List} />
             <Route path="/modify/new" exact component={Modify} />
-            <Route path="/modify/edit" exact component={Modify} />
+            <Route path="/modify/edit/:id" exact component={Modify} />
           </Switch>
         </Container>
     );
