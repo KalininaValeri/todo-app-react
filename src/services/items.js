@@ -16,6 +16,13 @@ const arrayItems = [
     priority: 2,
     deadline: '1525798800000',
     completed: '1525798800000',
+  }, {
+    id: 789,
+    title: 'title 3',
+    description: 'Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.',
+    priority: 1,
+    deadline: '1525798800000',
+    completed: '1525798800000',
   }
 ];
 

@@ -1,4 +1,4 @@
-import { ListGroup } from 'reactstrap';
+import { ListGroup, Button } from 'reactstrap';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ListItem from '../ListItem';
 import Filter from '../Filter';
 
-import { typesPriorities } from '../../helpers/const';
+import './index.css';
 
 const { array } = PropTypes;
 
@@ -23,8 +23,19 @@ class List extends Component {
     } = this;
   }
 
-  render() {
+  pushModifyPage = (path) => {
     const {
+      props: {
+        history,
+      }
+    } = this;
+    history.push(`/modify/${path}`);
+  };
+
+  render() {
+    console.log(this.props);
+    const {
+      pushModifyPage,
       props: {
         items,
         filterState,
@@ -39,9 +50,12 @@ class List extends Component {
 
     return (
       <Fragment>
-        {listItems.length ? <Filter/> : ''}
+        <header className="header">
+          <Button onClick={() => pushModifyPage('new')} className="new" outline color="success">Создать новую задачу</Button>
+          {listItems.length ? <Filter/> : ''}
+        </header>
         <ListGroup>
-          {listItems.map(item => <ListItem key={item.id} item={item}/>)}
+          {listItems.map(item => <ListItem key={item.id} item={item} pushModifyPage={pushModifyPage}/>)}
         </ListGroup>
       </Fragment>
     );
