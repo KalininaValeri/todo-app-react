@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../../logo.svg';
 
-class App extends Component {
+class List extends Component {
   render() {
     return (
       <div className="App">
@@ -26,4 +25,4 @@ const mapDispatch = ({
   addItem: () => add(),
 });
 
-export default connect(mapState, mapDispatch)(App);
+export default connect(mapState, mapDispatch)(List);
