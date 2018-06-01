@@ -9,5 +9,6 @@ export const setLocalStorage = () => {
 };
 
 export const getDataLocalStorage = () => {
-
-}
+  const data = localStorage.getItem('data');
+  return data ? JSON.parse(data) : null;
+};

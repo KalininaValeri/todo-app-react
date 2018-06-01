@@ -1,4 +1,4 @@
-import { setLocalStorage } from '../helpers/setLocalStorage';
+import { setLocalStorage, getDataLocalStorage } from '../helpers/handlerForLocalStorage';
 
 const arrayItems = [
   {
@@ -19,6 +19,8 @@ const arrayItems = [
     close_date: 'May 31 2018',
   }
 ];
+
+// const arrayItems = getDataLocalStorage();
 
 export const items = {
   state: arrayItems,
