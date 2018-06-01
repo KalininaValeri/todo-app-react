@@ -1,18 +1,45 @@
-import { Button } from 'reactstrap';
+import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import ListItem from '../ListItem';
+
+import { typesPriorities } from '../../helpers/const';
+
+const { array } = PropTypes;
 
 class List extends Component {
+  static propTypes = {
+    items: array,
+  };
+
+  ComponentWillMount(){
+
+  }
+
   render() {
+    const {
+      props: {
+        items,
+      }
+    } = this;
+
     return (
       <div>
-        <Button color="danger">Danger!</Button>
+        <ListGroup>
+          {
+            items && items.map(item => <ListItem key={item.id} item={item}/>  )
+          }
+        </ListGroup>
       </div>
     );
   }
 }
 
-const mapState = state => ({});
+const mapState = state => ({
+  items: state.items,
+});
 const mapDispatch = ({
   items: { add }
                      }) => ({
