@@ -1,9 +1,10 @@
-import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
-import React, { Component } from 'react';
+import { ListGroup } from 'reactstrap';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ListItem from '../ListItem';
+import Filter from '../Filter';
 
 import { typesPriorities } from '../../helpers/const';
 
@@ -14,31 +15,42 @@ class List extends Component {
     items: array,
   };
 
-  ComponentWillMount(){
+  componentWillMount(){
+    const {
+      props: {
 
+      }
+    } = this;
   }
 
   render() {
     const {
       props: {
         items,
+        filterState,
       }
     } = this;
 
+    let listItems = [];
+
+    if (items) {
+      listItems = filterState !==null ? items.filter(item => item.priority === filterState) : items;
+    }
+
     return (
-      <div>
+      <Fragment>
+        {listItems.length ? <Filter/> : ''}
         <ListGroup>
-          {
-            items && items.map(item => <ListItem key={item.id} item={item}/>  )
-          }
+          {listItems.map(item => <ListItem key={item.id} item={item}/>)}
         </ListGroup>
-      </div>
+      </Fragment>
     );
   }
 }
 
 const mapState = state => ({
   items: state.items,
+  filterState: state.filterState,
 });
 const mapDispatch = ({
   items: { add }
