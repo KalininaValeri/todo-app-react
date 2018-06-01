@@ -9,7 +9,8 @@ class App extends Component {
     return (
       <Switch key="content">
         <Route path="/" exact component={List} />
-        <Route path="/modify" exact component={Modify} />
+        <Route path="/modify/new" exact component={Modify} />
+        <Route path="/modify/edit" exact component={Modify} />
       </Switch>
     );
   }
