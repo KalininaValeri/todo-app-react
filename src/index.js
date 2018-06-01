@@ -6,6 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { store } from './shared/store/create-store';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './shared/normalize.css';
 import './shared/index.css';
 
 
