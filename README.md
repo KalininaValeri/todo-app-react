@@ -1,4 +1,4 @@
-#ToDo List
+# ToDo List
 
 * Приложение создано при помощи библиотек: reactstrap, React, rematch 
 * Приложние собирается при помощи ```webpack```
