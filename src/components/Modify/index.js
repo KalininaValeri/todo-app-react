@@ -41,30 +41,18 @@ class Modify extends Component {
       },
     } = this;
 
-
-
     if (pathname !== '/modify/new') {
       const idTask = pathname.substr(13);
       const task = items.find(item => {
-        console.log('---', item.id, idTask);
         return item.id === idTask
       });
-      console.log(idTask);
-      const deadline = new Date(+task.deadline);
-      const day = deadline.getDate() < 10 ? `0${deadline.getDate()}` : `${deadline.getDate()}`;
-      const month = deadline.getMonth() < 10 ? `0${deadline.getMonth()}` : `${deadline.getMonth()}`;
-      const hour = deadline.getHours() < 10 ? `0${deadline.getHours()}` : `${deadline.getHours()}`;
-      const minutes = deadline.getMinutes() < 10 ? `0${deadline.getMinutes()}` : `${deadline.getMinutes()}`;
-      const date = `${deadline.getFullYear()}-${month}-${day}`;
-      const time = `${hour}:${minutes}`;
-
       this.setState({
         id: task.id,
         title: task.title,
         description: task.description,
         priority: task.priority,
-        deadlineDate: date,
-        deadlineTime: time,
+        deadlineDate: task.deadlineDate,
+        deadlineTime: task.deadlineTime,
       });
     }
   }
@@ -134,21 +122,14 @@ class Modify extends Component {
 
     const idEdit = id ? id : v4();
 
-    const newDate = new Date(`${deadlineDate} ${deadlineTime}`);
-    const year = newDate.getFullYear();
-    const month = newDate.getMonth();
-    const day = newDate.getDate();
-    const hour = newDate.getHours() - 7;
-    const minutes = newDate.getMinutes();
-    const deadline = Date.UTC(year, month, day, hour, minutes);
-
     const newItem = {
       id: idEdit,
       title,
       completed: false,
       description,
       priority: +priority,
-      deadline
+      deadlineDate,
+      deadlineTime,
     };
 
     if (pathname === '/modify/new') {

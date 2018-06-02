@@ -25,16 +25,23 @@ class ListItem extends Component {
     let complitedDate;
 
     if (!item.completed) {
-      classNameItem = (item.deadline - Date.now()) < 0 && 'task-overdue';
+      const newDate = new Date(`${item.deadlineDate} ${item.deadlineTime}`);
+      const year = newDate.getFullYear();
+      const mount = newDate.getMonth();
+      const day = newDate.getDate();
+      const hour = newDate.getHours();
+      const minute = newDate.getMinutes();
+      classNameItem = (Date.UTC(year, mount, day, hour, minute) - Date.now()) < 0 && 'task-overdue';
     }
 
     if (item.completed) {
       complited = new Date(+item.completed);
-      complitedDate = `${complited.getDay()}-${complited.getMonth()}-${complited.getFullYear()} ${complited.getHours()}:${complited.getMinutes()}`;
+      const month = complited.getMonth() < 10 ? `0${complited.getMonth()}` : `${complited.getMonth()}`;
+      const day = complited.getDate() < 10 ? `0${complited.getDate()}` : `${complited.getDate()}`;
+      const hour = complited.getHours() < 10 ? `0${complited.getHours()}` : `${complited.getHours()}`;
+      const minute = complited.getMinutes() < 10 ? `0${complited.getMinutes()}` : `${complited.getMinutes()}`;
+      complitedDate = `${complited.getFullYear()}-${month}-${day} ${hour}:${minute}`;
     }
-
-    const deadline = new Date(+item.deadline);
-    const deadlineDate = `${deadline.getDay()}-${deadline.getMonth()}-${deadline.getFullYear()} ${deadline.getHours()}:${deadline.getMinutes()}`;
 
     return (
       <ListGroupItem className={`item ${classNameItem}`}>
@@ -46,14 +53,14 @@ class ListItem extends Component {
           <ListGroupItemText>{item.description}</ListGroupItemText>
           <div className="item-footer">
             <div className="small-block">{priority}</div>
-            <div className="small-block"><b>Делайн:</b> {deadlineDate}</div>
+            <div className="small-block"><b>Делайн:</b> {`${item.deadlineDate} ${item.deadlineTime}`}</div>
             {item.completed && <div className="small-block"><b>Задача заверешна:</b> {complitedDate}</div>}
           </div>
         </div>
         <div className="item__component btn-group">
-          <div className="button-icon edit" onClick={() => {pushModifyPage(`edit/${item.id}`)}}>
+          {!item.completed && <div className="button-icon edit" onClick={() => {pushModifyPage(`edit/${item.id}`)}}>
             <MaterialIcon icon="edit" color='#fff' size={16}/>
-          </div>
+          </div>}
           <div className="button-icon delete" onClick={() => {remove(item.id)}}>
             <MaterialIcon icon="delete" color='#fff' size={16}/>
           </div>
