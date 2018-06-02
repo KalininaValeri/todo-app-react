@@ -21,6 +21,7 @@
   "devDependencies": {
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-router-redux": "^4.0.8"
+    "react-router-redux": "^4.0.8",
+    "uuid-v4": "^0.1.0"
   }
 }
