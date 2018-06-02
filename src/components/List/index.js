@@ -1,6 +1,6 @@
-import { ListGroup, Button } from 'reactstrap';
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import {ListGroup, Button} from 'reactstrap';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ListItem from '../ListItem';
@@ -8,67 +8,61 @@ import Filter from '../Filter';
 
 import './index.css';
 
-const { array } = PropTypes;
+const {array, func} = PropTypes;
 
 class List extends Component {
-  static propTypes = {
-    items: array,
-  };
+    static propTypes = {
+        items: array,
+        filterState: func,
+    };
 
-  componentWillMount(){
-    const {
-      props: {
+    pushModifyPage = (path) => {
+        const {
+            props: {
+                history,
+            }
+        } = this;
+        history.push(`/modify/${path}`);
+    };
 
-      }
-    } = this;
-  }
+    render() {
+        const {
+            pushModifyPage,
+            props: {
+                items,
+                filterState,
+            }
+        } = this;
 
-  pushModifyPage = (path) => {
-    const {
-      props: {
-        history,
-      }
-    } = this;
-    history.push(`/modify/${path}`);
-  };
+        let listItems = [];
 
-  render() {
-    const {
-      pushModifyPage,
-      props: {
-        items,
-        filterState,
-      }
-    } = this;
+        if (items) {
+            listItems = filterState !== null ? items.filter(item => item.priority === filterState) : items;
+        }
 
-    let listItems = [];
-
-    if (items) {
-      listItems = filterState !==null ? items.filter(item => item.priority === filterState) : items;
+        return (
+            <Fragment>
+                <header className="header">
+                    <Button onClick={() => pushModifyPage('new')} className="new" outline color="success">Создать новую
+                        задачу</Button>
+                    {items.length ? <Filter/> : ''}
+                </header>
+                <ListGroup>
+                    {listItems.map(item => <ListItem key={item.id} item={item} pushModifyPage={pushModifyPage}/>)}
+                </ListGroup>
+            </Fragment>
+        );
     }
-
-    return (
-      <Fragment>
-        <header className="header">
-          <Button onClick={() => pushModifyPage('new')} className="new" outline color="success">Создать новую задачу</Button>
-          {items.length ? <Filter/> : ''}
-        </header>
-        <ListGroup>
-          {listItems.map(item => <ListItem key={item.id} item={item} pushModifyPage={pushModifyPage}/>)}
-        </ListGroup>
-      </Fragment>
-    );
-  }
 }
 
 const mapState = state => ({
-  items: state.items,
-  filterState: state.filterState,
+    items: state.items,
+    filterState: state.filterState,
 });
 const mapDispatch = ({
-  items: { add }
+                         items: {add}
                      }) => ({
-  addItem: () => add(),
+    addItem: () => add(),
 });
 
 export default connect(mapState, mapDispatch)(List);

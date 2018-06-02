@@ -11,9 +11,15 @@ import {typesPriorities} from '../../helpers/const';
 
 import './index.css';
 
-const {object} = PropTypes;
+const {object, func} = PropTypes;
 
 class ListItem extends Component {
+    static propTypes = {
+        item: object,
+        checkComplited: func,
+        remove: func,
+        pushModifyPage: func,
+    };
     getClassName = () => {
         const {
             props: {
@@ -86,10 +92,6 @@ class ListItem extends Component {
         );
     }
 }
-
-ListItem.propTypes = {
-    item: object,
-};
 
 const mapState = state => ({
     items: state.items,
