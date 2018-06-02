@@ -14,12 +14,16 @@ import './index.css';
 const {object} = PropTypes;
 
 class ListItem extends Component {
-  render() {
-    const {
-      props: {item, checkComplited, remove, pushModifyPage}
-    } = this;
+  state = {
+    classNameItem: '',
+    complitedDate: '',
+  };
 
-    const priority = typesPriorities.find(type => type.id === item.priority).name;
+  componentWillReceiveProps(props){
+    const {
+      item,
+    } = props;
+
     let classNameItem = '';
     let complited;
     let complitedDate;
@@ -32,6 +36,10 @@ class ListItem extends Component {
       const hour = newDate.getHours();
       const minute = newDate.getMinutes();
       classNameItem = (Date.UTC(year, mount, day, hour, minute) - Date.now()) < 0 && 'task-overdue';
+
+      this.setState({
+        classNameItem,
+      });
     }
 
     if (item.completed) {
@@ -41,7 +49,23 @@ class ListItem extends Component {
       const hour = complited.getHours() < 10 ? `0${complited.getHours()}` : `${complited.getHours()}`;
       const minute = complited.getMinutes() < 10 ? `0${complited.getMinutes()}` : `${complited.getMinutes()}`;
       complitedDate = `${complited.getFullYear()}-${month}-${day} ${hour}:${minute}`;
+      this.setState({
+        complitedDate,
+      });
     }
+  }
+
+  render() {
+    const {
+      state: {
+        classNameItem,
+        complitedDate,
+      },
+      props: {item, checkComplited, remove, pushModifyPage}
+    } = this;
+
+    const priority = typesPriorities.find(type => type.id === item.priority).name;
+
 
     return (
       <ListGroupItem className={`item ${classNameItem}`}>
