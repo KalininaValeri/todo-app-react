@@ -51,7 +51,7 @@ class List extends Component {
       <Fragment>
         <header className="header">
           <Button onClick={() => pushModifyPage('new')} className="new" outline color="success">Создать новую задачу</Button>
-          {listItems.length ? <Filter/> : ''}
+          {items.length ? <Filter/> : ''}
         </header>
         <ListGroup>
           {listItems.map(item => <ListItem key={item.id} item={item} pushModifyPage={pushModifyPage}/>)}
